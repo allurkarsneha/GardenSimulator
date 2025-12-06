@@ -14,15 +14,18 @@ public class Main {
             Files.newBufferedWriter(Paths.get(logFile)).close();
             System.out.println("Welcome to our Garden!! :) \n");
 
-            System.out.println("Points to remember before you simulate the garden:\n" +
-                    "   - Select the plants you want to cultivate.\n" +
-                    "   - Press \"Start Simulation\" to begin.\n" +
-                    "   - Observe the simulation process.\n" +
-                    "   - Garden metrics and the weather forecast are on the right side of the screen.\n" +
-                    "   - View logs by clicking on \"Show Logs\".\n" +
-                    "   - Happy Gardening! \n");
+            System.out.println(
+                    "Before you start the garden simulation:\n" +
+                            "  - Select the plants you want to cultivate.\n" +
+                            "  - Press \"Start Simulation\" to begin.\n" +
+                            "  - Watch how the garden evolves over time.\n" +
+                            "  - Garden metrics and the weather forecast are shown on the right.\n" +
+                            "  - Click \"Show Logs\" to review detailed events.\n" +
+                            "  - Happy gardening!\n"
+            );
 
-            System.out.println("We are clearing the content of old log file for you!!!");
+            System.out.println("Preparing a fresh run: clearing any previous log entries...");
+
 
         } catch (IOException exception) {
             System.err.println("An unexpected error occurred while clearing the old log file: " + exception.getMessage() + " Please try running again");
