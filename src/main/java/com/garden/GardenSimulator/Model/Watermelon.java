@@ -6,7 +6,7 @@ public class Watermelon extends Plant {
 
     public Watermelon(int row, int col) {
         // name, maxLifespan, waterRequirement, row, col, fertilizingFrequency
-        super("Watermelon", 8, 18, row, col, 3);
+        super("Watermelon", 15, 18, row, col, 3);
         count += 1;
     }
 

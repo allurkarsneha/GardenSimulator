@@ -14,7 +14,7 @@ public class Barley extends Plant {
     }
 
     public Barley(int row, int col) {
-        super("Barley", 9, 20, row, col, 2);
+        super("Barley", 16, 20, row, col, 2);
         count += 1;
     }
 

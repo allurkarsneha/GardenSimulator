@@ -32,7 +32,7 @@ public class PestController {
         imageView.setFitWidth(50);
         imageView.setFitHeight(50);
         gridPane.add(imageView, col, row);
-        logger.addCleanerLogEntry("Day " + dayCount + ": Cleaner visiting plant: " + plantName + " at grid (" + row + "," + col + ")");
+        logger.addCleanerLogEntry("Day " + dayCount + ": Cleaner visiting the plant: " + plantName + " at grid (" + row + "," + col + ")");
         PauseTransition pause = new PauseTransition(Duration.seconds(2));
         pause.setOnFinished(_ -> gridPane.getChildren().remove(imageView));
         pause.play();
@@ -85,7 +85,7 @@ public class PestController {
                     {
                         insects.clear();
                     }
-                    logger.addCleanerLogEntry("Day " + dayCount + " : Cleaner is cleaning pests near plant: " + plant.getName() + " at grid (" + plant.getRow() + "," + plant.getCol() + ")");
+                    logger.addCleanerLogEntry("Day " + dayCount + " : Cleaner is cleaning pests near : " + plant.getName() + " at grid (" + plant.getRow() + "," + plant.getCol() + ")");
 
                     handleCleanerGif(plant.getRow(), plant.getCol(), logger, dayCount, plant.getName());
                 }

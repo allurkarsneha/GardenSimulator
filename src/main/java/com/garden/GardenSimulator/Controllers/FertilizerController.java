@@ -26,8 +26,8 @@ public class FertilizerController {
 
     public EventHandler<ActionEvent> manageFertilizers(List<Plant> plants, Logger logger, int dayCount) {
         if (dayCount % 3 == 0) { // Every 3 days, restock fertilizers
-            restockFertilizer("Organic Fertilizer", 8, logger);
-            restockFertilizer("Chemical Fertilizer", 8, logger);
+            restockFertilizer("Organic Fertilizer", 10, logger);
+            restockFertilizer("Chemical Fertilizer", 10, logger);
         }
 
         for (Plant plant : plants) {
@@ -38,7 +38,7 @@ public class FertilizerController {
                 fertilizer.reduceStock(1); // Use one unit of fertilizer
                 fertilizerApply(plant, fertilizer, logger, dayCount);
             } else {
-                logger.addFertilizerLogEntry("Day " + dayCount + ": " + fertilizer.getName() + " stock is not Available");
+                logger.addFertilizerLogEntry("Day " + dayCount + ": " + fertilizer.getName() + " stock unavailable");
             }
         }
         return null;
@@ -53,7 +53,7 @@ public class FertilizerController {
                 return;
             }
         }
-        System.out.println(fertilizerName + " Fertilizer is not found.");
+        System.out.println(fertilizerName + " Fertilizer not found.");
     }
 
 
@@ -86,7 +86,7 @@ public class FertilizerController {
             showFertilizerAnimation(plant);
             plant.resetDaysSinceLastFertilized();
         } else {
-            logger.addFertilizerLogEntry("Day " + dayCount + ": Fertilizing not needed and Skipped " + plant.getName()
+            logger.addFertilizerLogEntry("Day " + dayCount + ": Fertilizer is not required for now and Skipped " + plant.getName()
                     + " at grid (" + plant.getRow() + "," + plant.getCol() + "). Days since last fertilized: "
                     + plant.getDaysSinceLastFertilized() + ". Frequency: " + plant.getFertilizingFrequency());
         }
@@ -96,8 +96,8 @@ public class FertilizerController {
         this.gridPane = gridPane;
         this.fertilizerImage = new Image(new File(FERTILIZER_IMAGE_PATH).toURI().toString());
         fertilizers = List.of(
-                new Fertilizer("Organic Fertilizer", 13, 1),
-                new Fertilizer("Chemical Fertilizer", 13, 2)
+                new Fertilizer("Organic Fertilizer", 10, 1),
+                new Fertilizer("Chemical Fertilizer", 10, 2)
         ); // Initialize with 2 types of fertilizers
         random = new Random();
     }

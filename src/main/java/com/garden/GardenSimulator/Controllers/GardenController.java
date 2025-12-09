@@ -37,8 +37,7 @@ public class GardenController {
         // Update plant conditions
         for (Plant plant : plants) {
             if (!plant.isDead()) {
-                plant.decrementDaysToLive();
-                plant.setCurrentWater(plant.getCurrentWater() - 3);
+                plant.setCurrentWater(plant.getCurrentWater() - 1);
             }
         }
 
@@ -47,10 +46,18 @@ public class GardenController {
         pestController.managePests(plants, insects, logger, dayCount);
         IrrigationSystem irrigationSystem = new IrrigationSystem();
         irrigationSystem.waterPlants();
-        logger.addWateringLogEntry("Day " + dayCount + ": Irrigation system watered all zones.");
+        logger.addWateringLogEntry("Day " + dayCount + ": Irrigation system has watered all the zones.");
 
         // Log watering activity
-        logger.addWateringLogEntry("Day " + dayCount + ": Plants watered.");
+        logger.addWateringLogEntry("Day " + dayCount + ": Plants watered!");
+
+        for (Plant plant : plants) {
+            if (!plant.isDead()) {
+                // Meet water requirement so plants gain a bit of life
+                plant.water(plant.getWaterRequirement());
+            }
+        }
+
 
         // Create a sensor with the current weather
         Sensor currentSensor = new Sensor(weather, 10); // Example: fixed temperature 10°C

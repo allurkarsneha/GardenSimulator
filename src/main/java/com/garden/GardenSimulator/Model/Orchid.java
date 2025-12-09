@@ -6,7 +6,7 @@ public class Orchid extends Plant {
 
     public Orchid(int row, int col) {
         // name, maxLifespan, waterRequirement, row, col, fertilizingFrequency
-        super("Orchid", 12, 12, row, col, 3);
+        super("Orchid", 19, 12, row, col, 3);
         count += 1;
     }
 

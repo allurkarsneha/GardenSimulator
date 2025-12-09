@@ -36,9 +36,7 @@ public class GertenSimulationAPI {
         logger.addDayLogEntry("Garden initialized with " + plants.size() + " plants.");
     }
 
-    /**
-     * Retrieves plant information including names, water requirements, and pest vulnerabilities.
-     */
+    //Retrieves plant information including names, water requirements, and pest vulnerabilities.
     public static Map<String, Object> getPlants() {
         Map<String, Object> plantInfo = new HashMap<>();
         List<String> plantNames = new ArrayList<>();
@@ -59,9 +57,7 @@ public class GertenSimulationAPI {
         return plantInfo;
     }
 
-    /**
-     * Simulates rainfall in the garden by adjusting water levels for all plants.
-     */
+    //Simulates rainfall in the garden by adjusting water levels for all plants.
     public static void rain(int amount) {
         logger.addDayLogEntry("Rainfall event: " + amount + " units");
 
@@ -73,9 +69,7 @@ public class GertenSimulationAPI {
         dayCount++;
     }
 
-    /**
-     * Simulates temperature changes in the garden.
-     */
+    //Simulates temperature changes in the garden.
     public static void temperature(int temp) {
         logger.addDayLogEntry("Temperature changed to " + temp + "°F");
         currentTemperature = temp;
@@ -88,9 +82,7 @@ public class GertenSimulationAPI {
         dayCount++;
     }
 
-    /**
-     * Triggers a parasite infestation based on plant vulnerabilities.
-     */
+    //Triggers a parasite infestation based on plant vulnerabilities.
     public static void parasite(String parasiteType) {
         logger.addInsectLogEntry("Parasite infestation: " + parasiteType);
 
@@ -104,9 +96,7 @@ public class GertenSimulationAPI {
         dayCount++;
     }
 
-    /**
-     * Logs details about the garden's current state, including plant health and status.
-     */
+    //Logs details about the garden's current state, including plant health and status.
     public static void getState() {
         logger.addDayLogEntry("Garden State Report - Day " + dayCount);
         int alive = 0, dead = 0;
@@ -122,9 +112,7 @@ public class GertenSimulationAPI {
         logger.addDayLogEntry("Alive: " + alive + ", Dead: " + dead);
     }
 
-    /**
-     * Helper method to create and add a plant to the system.
-     */
+    //Helper method to create and add a plant to the system.
     private static void addPlant(String name, int waterRequirement, List<String> parasites) {
         Plant plant;
 
@@ -154,9 +142,7 @@ public class GertenSimulationAPI {
     }
 
 
-    /**
-     * Initializes predefined pest vulnerabilities for plants.
-     */
+    //Initializes predefined pest vulnerabilities for plants.
     static {
         pestVulnerabilities.put("Barley", Arrays.asList("Aphid", "Caterpillar"));
         pestVulnerabilities.put("Mango", Arrays.asList("Caterpillar"));

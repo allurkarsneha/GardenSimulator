@@ -13,7 +13,6 @@ import com.garden.GardenSimulator.Systems.Cleaner;
 import javafx.scene.paint.Color;
 import javafx.scene.text.*;
 import javafx.stage.Stage;
-import com.garden.GardenSimulator.Systems.Zone;
 import javafx.animation.*;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -56,6 +55,7 @@ public class UserInterface extends Application {
     private ProgressBar fertilizerStockProgressBar;
     private int fertilizerStock = 100;
     private SensorController sensorController;
+    private static final int MAX_LOG_ITEMS = 500;
 
     @Override
     public void start(Stage primaryStage) {
@@ -117,14 +117,14 @@ public class UserInterface extends Application {
         mainLayout.setRight(rightPane);
         BorderPane.setMargin(rightPane, new Insets(0, 0, 0, 15));
 
-        // Fertilizer stock labels (not yet wired visually, but kept)
+        // Fertilizer stock labels
         fertilizerStockLabel = new Label("Fertilizer Stock: " + fertilizerStock);
         fertilizerStockLabel.setFont(Font.font("Arial", FontWeight.BOLD, 16));
         fertilizerStockLabel.setTextFill(Color.LIMEGREEN);
         fertilizerStockProgressBar = new ProgressBar(1.0);
         fertilizerStockProgressBar.setPrefWidth(200);
 
-        // Show / Hide Logs button, now that we have logAccordion
+        // Show / Hide Logs button
         Button toggleLogsButton = new Button("Show Logs");
         toggleLogsButton.setStyle(
                 "-fx-background-color: linear-gradient(to bottom, #00d9ff, #0099cc); " +
@@ -134,7 +134,7 @@ public class UserInterface extends Application {
                         "-fx-background-radius: 12; " +
                         "-fx-padding: 8 16; " +
                         "-fx-font-weight: bold; " +
-                        "-fx-font-size: 13px; " +
+                        "-fx-font-size: 15px; " +
                         "-fx-effect: dropshadow(gaussian, rgba(0, 217, 255, 0.6), 10, 0, 0, 0);"
         );
         toggleLogsButton.setOnMouseEntered(e -> toggleLogsButton.setStyle(
@@ -145,7 +145,7 @@ public class UserInterface extends Application {
                         "-fx-background-radius: 12; " +
                         "-fx-padding: 8 16; " +
                         "-fx-font-weight: bold; " +
-                        "-fx-font-size: 13px; " +
+                        "-fx-font-size: 15px; " +
                         "-fx-effect: dropshadow(gaussian, rgba(0, 255, 255, 0.9), 15, 0, 0, 0); " +
                         "-fx-scale-x: 1.05; -fx-scale-y: 1.05;"
         ));
@@ -157,7 +157,7 @@ public class UserInterface extends Application {
                         "-fx-background-radius: 12; " +
                         "-fx-padding: 8 16; " +
                         "-fx-font-weight: bold; " +
-                        "-fx-font-size: 13px; " +
+                        "-fx-font-size: 15px; " +
                         "-fx-effect: dropshadow(gaussian, rgba(0, 217, 255, 0.6), 10, 0, 0, 0);"
         ));
         toggleLogsButton.setOnAction(event -> {
@@ -351,14 +351,14 @@ public class UserInterface extends Application {
                         "-fx-effect: dropshadow(gaussian, rgba(0, 255, 136, 0.5), 10, 0, 0, 0);"
         );
 
-        
+
         button.setOnAction(_ -> {
             // Prevent infinite loop when grid is full
             if (!hasEmptyCell()) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Garden is full");
                 alert.setHeaderText(null);
-                alert.setContentText("All plots are occupied. Remove a plant before adding a new one.");
+                alert.setContentText("All plots are occupied!!");
                 alert.showAndWait();
                 return;
             }
@@ -463,7 +463,7 @@ public class UserInterface extends Application {
 
         waterProgressBar = new ProgressBar(0);
         waterProgressBar.setPrefWidth(220);
-        waterProgressBar.setStyle("-fx-accent: #00d9ff;");
+        waterProgressBar.setStyle("-fx-accent: #ff6b6b;");
 
         waterProgressLabel = new Label("Water percentage: 0%");
         waterProgressLabel.setFont(Font.font("Arial", FontWeight.BOLD, 15));
@@ -530,7 +530,7 @@ public class UserInterface extends Application {
     }
 
     private Label createDirectoryLabel() {
-        Label directoryLabel = new Label("GARDEN METRICS");
+        Label directoryLabel = new Label("METRICS");
         directoryLabel.setFont(Font.font("Arial", FontWeight.BOLD, 18));
         directoryLabel.setStyle(
                 "-fx-background-color: linear-gradient(to right, rgba(0, 255, 170, 0.9), rgba(0, 217, 255, 0.9)); " +
@@ -925,6 +925,8 @@ public class UserInterface extends Application {
     private void addLogEntries(ListView<TextFlow> logList, List<String> logEntries, Color color) {
         for (String entry : logEntries) {
             String[] parts = entry.split(": ");
+            TextFlow textFlow;
+
             if (parts.length > 1) {
                 String timestamp = parts[0];
                 String message = parts[1];
@@ -937,33 +939,31 @@ public class UserInterface extends Application {
                 messageText.setFill(color);
                 messageText.setFont(Font.font("Arial", FontWeight.NORMAL, 14));
 
-                TextFlow textFlow = new TextFlow(timestampText, messageText);
-                textFlow.setPadding(new Insets(5, 10, 5, 10));
-                textFlow.setStyle(
-                        "-fx-background-color: rgba(248, 250, 252, 0.12); " +
-                                "-fx-background-radius: 5; " +
-                                "-fx-border-color: rgba(148, 163, 184, 0.8); " +
-                                "-fx-border-radius: 5; " +
-                                "-fx-border-width: 1;"
-                );
-                logList.getItems().add(textFlow);
+                textFlow = new TextFlow(timestampText, messageText);
             } else {
                 Text text = new Text(entry + "\n");
                 text.setFill(color);
                 text.setFont(Font.font("Arial", FontWeight.NORMAL, 14));
-                TextFlow textFlow = new TextFlow(text);
-                textFlow.setPadding(new Insets(5, 10, 5, 10));
-                textFlow.setStyle(
-                        "-fx-background-color: rgba(248, 250, 252, 0.12); " +
-                                "-fx-background-radius: 5; " +
-                                "-fx-border-color: rgba(148, 163, 184, 0.8); " +
-                                "-fx-border-radius: 5; " +
-                                "-fx-border-width: 1;"
-                );
-                logList.getItems().add(textFlow);
+                textFlow = new TextFlow(text);
+            }
+
+            textFlow.setPadding(new Insets(5, 10, 5, 10));
+            textFlow.setStyle(
+                    "-fx-background-color: rgba(248, 250, 252, 0.12); " +
+                            "-fx-background-radius: 5; " +
+                            "-fx-border-color: rgba(148, 163, 184, 0.8); " +
+                            "-fx-border-radius: 5; " +
+                            "-fx-border-width: 1;"
+            );
+
+            // Cap items to hold most recent 500 in memory
+            logList.getItems().add(textFlow);
+            if (logList.getItems().size() > MAX_LOG_ITEMS) {
+                logList.getItems().remove(0);
             }
         }
     }
+
 
     private void updateLog() {
         dayLogList.getItems().clear();
@@ -985,7 +985,7 @@ public class UserInterface extends Application {
         startSimulationButton.setDisable(true);
         if (gardenController.getDay() == 0) {
             simulateDay();
-            simulationTimeline = new Timeline(new KeyFrame(Duration.seconds(4), _ -> simulateDay()));
+            simulationTimeline = new Timeline(new KeyFrame(Duration.minutes(1), _ -> simulateDay()));
             simulationTimeline.setCycleCount(Timeline.INDEFINITE);
         }
         simulationTimeline.play();
@@ -1031,12 +1031,6 @@ public class UserInterface extends Application {
         }
         currentWeather = weather;
         gardenController.simulateDay();
-        pestController.managePests(
-                gardenController.getPlants(),
-                gardenController.getInsects(),
-                gardenController.getLogger(),
-                gardenController.getDay()
-        );
 
         fertilizerController.manageFertilizers(
                 gardenController.getPlants(),

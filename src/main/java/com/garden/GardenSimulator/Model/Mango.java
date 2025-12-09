@@ -6,7 +6,7 @@ public class Mango extends Plant {
 
     public Mango(int row, int col) {
         // name, maxLifespan, waterRequirement, row, col, fertilizingFrequency
-        super("Mango", 10, 15, row, col,4);
+        super("Mango", 17, 15, row, col,4);
         count += 1;
     }
 

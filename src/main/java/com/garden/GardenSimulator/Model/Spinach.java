@@ -6,7 +6,7 @@ public class Spinach extends Plant {
 
     public Spinach(int row, int col) {
         // name, maxLifespan, waterRequirement, row, col, fertilizingFrequency
-        super("Spinach", 8, 15, row, col, 2);
+        super("Spinach", 15, 15, row, col, 2);
         count += 1;
     }
 

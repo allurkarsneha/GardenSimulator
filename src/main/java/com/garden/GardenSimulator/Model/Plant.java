@@ -99,7 +99,7 @@ public abstract class Plant {
 
     public void boostGrowth() {
         if (!isDead) {
-            daysToLive.set(Math.min(daysToLive.get() + 10, maxLifespan));  // Optionally increase lifespan
+            daysToLive.set(Math.min(daysToLive.get() + 15, maxLifespan));  // Optionally increase lifespan
         }
     }
 
@@ -114,7 +114,7 @@ public abstract class Plant {
                 isDead = true;
             }
         }
-        if (pestAttacks >= 18) {  // Plant dies after 18 pest attacks
+        if (pestAttacks >= 20) {  // Plant dies after 20 pest attacks
             isDead = true;
         }
     }
@@ -125,37 +125,33 @@ public abstract class Plant {
 
     public void adjustLifespanForWeather(String weather) {
         if (!isDead) {
-            // No additional days for sunny weather
             if (weather.equals("Rainy")) {
-                // Rainy days are beneficial, increase lifespan by 1
-                daysToLive.set(Math.min(daysToLive.get() + 1, maxLifespan));
+                // Rainy days are beneficial, increase lifespan by 2
+                daysToLive.set(Math.min(daysToLive.get() + 2, maxLifespan));
             }
             if (weather.equals("Cloudy")) {
-                // Cloudy days are harmful, decrease lifespan by 2
-                daysToLive.set(daysToLive.get() - 2);
+                // Cloudy days are harmful, decrease lifespan by 1
+                daysToLive.set(daysToLive.get() - 1);
                 if (daysToLive.get() <= 0) {
                     isDead = true;
                 }
             }
             if (weather.equals("Sunny")) {
-                // Sunny days are beneficial, increase lifespan by 1
-                daysToLive.set(Math.min(daysToLive.get() + 1, maxLifespan));
+                // Sunny days are beneficial, increase lifespan by 2
+                daysToLive.set(Math.min(daysToLive.get() + 2, maxLifespan));
             }
         }
     }
 
-    // Getter and setter methods for the fertilizing frequency
     public int getFertilizingFrequency() {
         return this.fertilizingFrequency;
     }
 
-
-    // Other Methods
     public void water(int amount) {
         if (!isDead) {
             currentWater += amount;
             if (currentWater >= waterRequirement) {
-                daysToLive.set(Math.min(daysToLive.get() + 1, maxLifespan));// Increase lifespan by 1 day if properly wateredd
+                daysToLive.set(Math.min(daysToLive.get() + 2, maxLifespan));// Increase lifespan by 2 days if properly watered
             } else {
                 daysToLive.set(daysToLive.get() - 1);
             }
