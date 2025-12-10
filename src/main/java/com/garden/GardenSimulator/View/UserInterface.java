@@ -977,7 +977,7 @@ public class UserInterface extends Application {
         startSimulationButton.setDisable(true);
         if (gardenController.getDay() == 0) {
             simulateDay();
-            simulationTimeline = new Timeline(new KeyFrame(Duration.seconds(1), _ -> simulateDay()));
+            simulationTimeline = new Timeline(new KeyFrame(Duration.hours(1), _ -> simulateDay()));
             simulationTimeline.setCycleCount(Timeline.INDEFINITE);
         }
         simulationTimeline.play();
