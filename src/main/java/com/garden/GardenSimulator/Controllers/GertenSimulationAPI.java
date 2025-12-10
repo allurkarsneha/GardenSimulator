@@ -10,6 +10,7 @@ import java.util.*;
 /**
  * GertenSimulationAPI provides an interface for automated testing of the garden simulation system.
  * It exposes methods to initialize the garden, retrieve plant information, and simulate environmental conditions.
+ * Since we have used all these methods in other files in our code, This is just an API for testing purposes
  */
 public class GertenSimulationAPI {
     private static final Map<String, Plant> plants = new HashMap<>();
@@ -27,11 +28,11 @@ public class GertenSimulationAPI {
         logger.addDayLogEntry("Initializing garden - Day 0 begins");
 
         // Creating predefined plants for simulation
-        addPlant("Barley", 5, Arrays.asList("Aphid", "Caterpillar"));
-        addPlant("Mango", 8, Collections.singletonList("Caterpillar"));
-        addPlant("Watermelon", 4, Arrays.asList("Aphid"));
-        addPlant("Spinach", 8, Arrays.asList("Aphid"));
-        addPlant("Orchid", 6, Arrays.asList("Aphid"));
+        addPlant("Barley", 20, Arrays.asList("Aphid", "Caterpillar"));
+        addPlant("Mango", 15, Collections.singletonList("Caterpillar"));
+        addPlant("Watermelon", 18, Collections.singletonList("Aphid"));
+        addPlant("Spinach", 15, Collections.singletonList("Aphid"));
+        addPlant("Orchid", 12, Collections.singletonList("Aphid"));
 
         logger.addDayLogEntry("Garden initialized with " + plants.size() + " plants.");
     }
@@ -112,29 +113,16 @@ public class GertenSimulationAPI {
         logger.addDayLogEntry("Alive: " + alive + ", Dead: " + dead);
     }
 
-    //Helper method to create and add a plant to the system.
+    //Method to create and add a plant to the system.
     private static void addPlant(String name, int waterRequirement, List<String> parasites) {
-        Plant plant;
-
-        switch (name.toLowerCase()) {
-            case "spinach":
-                plant = new Spinach(1, 5); // Use appropriate row, col values
-                break;
-            case "barley":
-                plant = new Barley(7, 5);
-                break;
-            case "mango":
-                plant = new Mango(3, 3);
-                break;
-            case "watermelon":
-                plant = new Watermelon(4, 2);
-                break;
-            case "orchid":
-                plant = new Orchid(2, 4);
-                break;
-            default:
-                throw new IllegalArgumentException("Unknown plant type: " + name);
-        }
+        Plant plant = switch (name.toLowerCase()) {
+            case "spinach" -> new Spinach(1, 5); // Use appropriate row, col values
+            case "barley" -> new Barley(7, 5);
+            case "mango" -> new Mango(3, 3);
+            case "watermelon" -> new Watermelon(4, 2);
+            case "orchid" -> new Orchid(2, 4);
+            default -> throw new IllegalArgumentException("Unknown plant type: " + name);
+        };
 
         plants.put(name, plant);
         pestVulnerabilities.put(name, parasites);
@@ -145,9 +133,31 @@ public class GertenSimulationAPI {
     //Initializes predefined pest vulnerabilities for plants.
     static {
         pestVulnerabilities.put("Barley", Arrays.asList("Aphid", "Caterpillar"));
-        pestVulnerabilities.put("Mango", Arrays.asList("Caterpillar"));
-        pestVulnerabilities.put("Watermelon", Arrays.asList("Aphid"));
-        pestVulnerabilities.put("Spinach", Arrays.asList("Aphid"));
-        pestVulnerabilities.put("Orchid", Arrays.asList("Aphid"));
+        pestVulnerabilities.put("Mango", List.of("Caterpillar"));
+        pestVulnerabilities.put("Watermelon", List.of("Aphid"));
+        pestVulnerabilities.put("Spinach", List.of("Aphid"));
+        pestVulnerabilities.put("Orchid", List.of("Aphid"));
     }
+
+
+    public static void addPlantPublic(String name, int waterRequirement, List<String> parasites) {
+        addPlant(name, waterRequirement, parasites);
+    }
+
+    public static Map<String, Integer> getStateAsMap() {
+        int alive = 0, dead = 0;
+        for (Plant plant : plants.values()) {
+            if (plant.isDead()) {
+                dead++;
+            } else {
+                alive++;
+            }
+        }
+        Map<String, Integer> state = new HashMap<>();
+        state.put("alive", alive);
+        state.put("dead", dead);
+        logger.addDayLogEntry("Alive: " + alive + ", Dead: " + dead);
+        return state;
+    }
+
 }

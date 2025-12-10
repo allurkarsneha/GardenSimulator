@@ -53,7 +53,7 @@ public class GardenController {
 
         for (Plant plant : plants) {
             if (!plant.isDead()) {
-                // Meet water requirement so plants gain a bit of life
+                // Meet water requirements so plants gain a bit of life
                 plant.water(plant.getWaterRequirement());
             }
         }

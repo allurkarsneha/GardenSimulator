@@ -512,14 +512,6 @@ public class UserInterface extends Application {
     }
 
 
-    private ImageView createFarmerImage() {
-        ImageView imageView = new ImageView(
-                new Image(new File("src/main/images/happy_farmer.gif").toURI().toString()));
-        imageView.setFitWidth(100);
-        imageView.setFitHeight(100);
-        return imageView;
-    }
-
     private HBox createTempAndWaterBox(VBox progressBox) {
         HBox tempAndWaterBox = new HBox();
         tempAndWaterBox.setSpacing(10);
@@ -985,7 +977,7 @@ public class UserInterface extends Application {
         startSimulationButton.setDisable(true);
         if (gardenController.getDay() == 0) {
             simulateDay();
-            simulationTimeline = new Timeline(new KeyFrame(Duration.minutes(1), _ -> simulateDay()));
+            simulationTimeline = new Timeline(new KeyFrame(Duration.seconds(1), _ -> simulateDay()));
             simulationTimeline.setCycleCount(Timeline.INDEFINITE);
         }
         simulationTimeline.play();

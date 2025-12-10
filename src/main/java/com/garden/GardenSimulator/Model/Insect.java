@@ -26,8 +26,6 @@ public abstract class Insect {
         this.col = col;
     }
 
-
-
     // Abstract Methods
     public abstract boolean isPest();
 }

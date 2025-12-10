@@ -10,15 +10,4 @@ public class Watermelon extends Plant {
         count += 1;
     }
 
-    public int getCount() {
-        return count;
-    }
-
-
-    public void decrementCount() {
-        count -= 1;
-    }
-
-
-
 }
