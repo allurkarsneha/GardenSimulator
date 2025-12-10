@@ -53,7 +53,7 @@ Key packages and classes:
   - `SensorController` – handles sensor-based animations and weather effects.
   - `GertenSimulationAPI` – headless testing API used for automated grading.
 - `com.garden.GardenSimulator.Model`
-  - `Plant` base class and concrete plants (e.g., Corn, Pineapple, Watermelon, Carrot/Barley/Mango/Spinach/Orchid).
+  - `Plant` base class and concrete plants (e.g.,Barley,Mango,Spinach,Orchid,Watermelon).
   - `Insect`, `Pest`, `BeneficialInsect`.
 - `com.garden.GardenSimulator.Systems`
   - `IrrigationSystem`, `HeatingSystem`, `Sensor`, `Zone`, `Cleaner`, `Fertilizer`.
@@ -129,7 +129,7 @@ This will:
   - Right: weather + metrics.
   - Bottom: collapsible logs.
 - Animations:
-  - Background particles, moving birds/butterflies/spiders.
+  - Background particles, moving birds.
   - Farmer walking (`farmer_walk.gif`) to fertilized plants.
   - Cleaners moving to pest‑attacked plants.
 - Robust logging via a custom `Logger` class that:
